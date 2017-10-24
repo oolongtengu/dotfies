@@ -5,7 +5,7 @@
     set whichwrap+=<,>,[,],h,l,                 " <Left>, <Right>, h, and l wrap around line breaks
     set nostartofline                           " Don't reset cursor to start of line when moving around
     set cursorline                              " Show a horizontal line underneath the cursor
-    set shiftwidth=2
+    set shiftwidth=4
     set expandtab
     set smarttab
     set showcmd "
@@ -33,10 +33,10 @@
     highlight ColorColumn ctermbg=0 guibg=lightgrey
     set showcmd                                 " Display commands at the bottom of the screen
     set autoindent
-    set backspace=2
+    set backspace=4
     set cindent
     set copyindent
-    set tabstop=2
+    set tabstop=4
  " }}}
 
 
