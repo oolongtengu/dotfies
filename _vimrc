@@ -5,6 +5,14 @@
     set whichwrap+=<,>,[,],h,l,                 " <Left>, <Right>, h, and l wrap around line breaks
     set nostartofline                           " Don't reset cursor to start of line when moving around
     set cursorline                              " Show a horizontal line underneath the cursor
+    set shiftwidth=2
+    set expandtab
+    set smarttab
+    set showcmd "
+    syntax on
+    set background=dark
+    set autochdir
+" }}}
 
 " Searching Criteria
 " {{{
@@ -15,20 +23,6 @@
     set hlsearch                                  " Highlight search results
     set incsearch                                 " Show matches while typing pattern
 " }}}
-" }}}
-" }}}
-" }}}
-
-
-
-
-set shiftwidth=2
-set expandtab
-set smarttab
-set showcmd "
-syntax on
-set background=dark
-set autochdir
 
 
 " Numbers, Lines, and Folding
