@@ -22,8 +22,7 @@ Determines distro based on the $ID_LIKE and $DISTRIB_ID fields found in /etc/\*r
 Authored entirely by yours truely. This will be updated as my dotfiles evolve- to be tweaked to my needs and workflow.
 
 ## Unlicenced
-
-    Find the full [unlicense][] in the `UNLICENSE` file, but here's a snippet.
+Find the full [unlicense][] in the `UNLICENSE` file, but here's a snippet.
 
     >This is free and unencumbered software released into the public domain.
     >
@@ -31,4 +30,4 @@ Authored entirely by yours truely. This will be updated as my dotfiles evolve- t
 
     Do what you want. Learn as much as you can. Unlicense more software.
 
-    [unlicense]: http://unlicense.org/
+   [unlicense]: http://unlicense.org/
