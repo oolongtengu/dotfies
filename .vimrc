@@ -12,15 +12,20 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'dhruvasagar/vim-table-mode'
 "Plugin 'Valloric/YouCompleteMe" Preferred on distros without gcc preinstalled
+Plugin 'fatih/vim-go'
 Plugin 'junegunn/goyo.vim'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'w0rp/ale'
-Plugin 'tomasr/molokai'
+Plugin 'vimwiki/vimwiki'
+Plugin 'chriskempson/base16-vim'
+" Plugin 'tomasr/molokai'
 Plugin 'davidhalter/jedi-vim' "Preferred on home machine
+Plugin 'mattn/calendar-vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
+" Plugin 'tpope/vim-fugitive'
+Plugin 'drewtempelmeyer/palenight.vim'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
@@ -77,6 +82,7 @@ filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
+set autowrite
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
@@ -179,12 +185,12 @@ if $COLORTERM == 'gnome-terminal'
     set t_Co=256
 endif
 
-try
-    colorscheme molokai
-catch
-endtry
-
 set background=dark
+
+if filereadable(expand("~/.vimrc_background"))
+      let base16colorspace=256
+      source ~/.vimrc_background
+endif
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -265,6 +271,28 @@ map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove 
 map <leader>t<leader> :tabnext 
+
+" Navigate between errors in the quickfix list for go-vim
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
+
+" Builds or runs or tests go programs
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
@@ -394,3 +422,28 @@ function! <SID>BufcloseCloseIt()
    endif
 endfunction
 
+
+
+
+" vimwiki stuff "
+" Run multiple wikis "
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+autocmd FileType vimwiki map d :VimwikiMakeDiaryNote
+function! ToggleCalendar()
+  execute ":Calendar"
+  if exists("g:calendar_open")
+    if g:calendar_open == 1
+      execute "q"
+      unlet g:calendar_open
+    else
+      g:calendar_open = 1
+    end
+  else
+    let g:calendar_open = 1
+  end
+endfunction
+au BufRead *.wiki,*.md,*.txt setlocal spell
+
+let g:auto_save = 2
+
+map <F5> :setlocal spell! spelllang=en_us<CR>
